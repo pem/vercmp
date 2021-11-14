@@ -4,13 +4,14 @@
 */
 
 #include <stdlib.h>
+#include <ctype.h>
 #include <errno.h>
 #include "vercmp.h"
 
 int
 vercmp(const char *v1, const char *v2)
 {
-    if (v1 == NULL || *v1 == '\0' || v2 == NULL || *v2 == '\0')
+    if (v1 == NULL || !isdigit(*v1) || v2 == NULL || !isdigit(*v2))
     {
         errno = EINVAL;
         return 0;

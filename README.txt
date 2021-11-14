@@ -13,5 +13,6 @@ X is eq, neq, lt, le, gt, and ge; for "equal", "not equal", "less than", and
 so on.
 
 Only digits and dots are accepted, no letters. If a malformed string is given,
-errno is set to EINVAL and 0 is returned. However, a trailing dot is accepted.
-(Mostly for coding convenience, treating as an error would be awkward.)
+errno is set to EINVAL or ERANGE and 0 is returned. However, a trailing dot is
+accepted. (Mostly for coding convenience, treating as an error would be
+awkward.)

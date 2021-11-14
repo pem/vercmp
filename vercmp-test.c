@@ -68,13 +68,16 @@ static v_t Versions[] =
      { "5a.7b"   , "5c.7d"    ,  0, EINVAL },
      { "5x.y7z"  , "q5q.qq7"  ,  0, EINVAL },
      { "foo"     , "bar"      ,  0, EINVAL },
+     { "-3.3"    , "3.3"      ,  0, EINVAL },
+     { "+3.3"    , "3.3"      ,  0, EINVAL },
+     { "184467440737095516151", "18446744073709551615", 0, ERANGE },
      { NULL      , NULL       ,  0, EINVAL } /* Sentinel, and we also test this case */
     };
 
 static void
 test(const char *v1, const char *v2, v_t *expected)
 {
-    char s1[16], s2[16];
+    char s1[32], s2[32];
 
     if (v1 == NULL)
         snprintf(s1, sizeof(s1), "NULL");
