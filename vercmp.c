@@ -9,12 +9,12 @@
 #include "vercmp.h"
 
 int
-vercmp(const char *v1, const char *v2)
+verncmp(const char *v1, const char *v2, size_t n)
 {
     if (v1 == NULL || !isdigit(*v1) || v2 == NULL || !isdigit(*v2))
         goto einval;
 
-    while (*v1 != '\0' || *v2 != '\0')
+    while (n-- && (*v1 != '\0' || *v2 != '\0'))
     {
         if ((*v1 != '\0' && !isdigit(*v1)) || (*v2 != '\0' && !isdigit(*v2)))
             goto einval;
@@ -47,6 +47,49 @@ vercmp(const char *v1, const char *v2)
  einval:
     errno = EINVAL;
     return 0;
+}
+
+bool
+verncmp_eq(const char *v1, const char *v2, size_t n)
+{
+    return (verncmp(v1, v2, n) == 0);
+}
+
+bool
+verncmp_neq(const char *v1, const char *v2, size_t n)
+{
+    return (verncmp(v1, v2, n) != 0);
+}
+
+bool
+verncmp_lt(const char *v1, const char *v2, size_t n)
+{
+    return (verncmp(v1, v2, n) == -1);
+}
+
+bool
+verncmp_le(const char *v1, const char *v2, size_t n)
+{
+    return (verncmp(v1, v2, n) != 1);
+}
+
+bool
+verncmp_gt(const char *v1, const char *v2, size_t n)
+{
+    return (verncmp(v1, v2, n) == 1);
+}
+
+bool
+verncmp_ge(const char *v1, const char *v2, size_t n)
+{
+    return (verncmp(v1, v2, n) != -1);
+}
+
+
+int
+vercmp(const char *v1, const char *v2)
+{
+    return verncmp(v1, v2, SIZE_MAX);
 }
 
 bool
